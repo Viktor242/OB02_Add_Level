@@ -17,7 +17,13 @@
 # и модификации снаружи. Предоставь доступ к необходимым атрибутам через методы (например, get и set методы).
 
 class User:
-    def __init__(self, id, name, access_level):
-        self.id = id
-        self.name = name
-        self.access_level = access_level
+    def __init__(self, id: int, name: str, access_level: str = 'user'):
+        self._id = id
+        self._name = name
+        self._access_level = access_level
+
+
+
+class Admin(User):
+    def __init__(self, id, name):
+        super().__init__(id, name, access_level='admin')
