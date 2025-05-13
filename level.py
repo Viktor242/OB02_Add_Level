@@ -16,3 +16,8 @@
 #3.Инкапсуляция данных: Убедись, что атрибуты классов защищены от прямого доступа
 # и модификации снаружи. Предоставь доступ к необходимым атрибутам через методы (например, get и set методы).
 
+class User:
+    def __init__(self, id, name, access_level):
+        self.id = id
+        self.name = name
+        self.access_level = access_level
