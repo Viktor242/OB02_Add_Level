@@ -18,63 +18,69 @@ from os import access
 #3.Инкапсуляция данных: Убедись, что атрибуты классов защищены от прямого доступа
 # и модификации снаружи. Предоставь доступ к необходимым атрибутам через методы (например, get и set методы).
 
+# Создание класса User
 class User:
-    def __init__(self, id, name,access_level: str = 'user'):
+    def __init__(self, id, name, access_level: str = 'user'):
         self.__id = id  # Приватный атрибут
         self.__name = name  # Приватный атрибут
         self.__access_level = access_level  # Приватный атрибут
 
+# Метод для получения идентификатора
     def get_id(self):
         return self.__id
 
+# Метод для получения имени
     def get_name(self):
         return self.__name
 
+# Метод для получения уровня доступа
     def get_access_level(self):
         return self.__access_level
 
-    def __set_name__(self, name):
-        self.__name = name  # Метод для изменения уровня доступа снаружи__set
+# Метод для изменения имени
+    def set_name(self, name):
+        self.__name = name  # Метод для изменения имени
 
+# Наследуемся от класса User класс Admin
 class Admin(User):
     def __init__(self, id, name):
         super().__init__(id, name, access_level='admin')
         self.__users = []  # Приватный список пользователей
 
-    def add_user(self, user: User):
+# Метод для добавления пользователей
+    def add_user(self, user):
         self.__users.append(user)
 
-    def remove_user(self, user: User):
-        if user in self.__users:
-            self.__users.remove(user)
+# Метод для удаления пользователей
+    def remove_user(self, user):
+        self.__users.remove(user)
 
     def get_users(self):
         return self.__users
 
+# Создаем обычных пользователей
+user1 = User(1, "Иван Иванов")
+user2 = User(2, "Петр Петров")
+user3 = User(3, "Виктор Каменев")
 
+# Создаем администратора
+admin = Admin(100, "Администратор Системы")
 
-# Пример использования
-if __name__ == "__main__":
-    # Создаем обычных пользователей
-    user1 = User(1, "Иван Иванов")
-    user2 = User(2, "Петр Петров")
-    user3 = User(3, "Виктор Каменев")
+# Администратор добавляет пользователей
+admin.add_user(user1)
+admin.add_user(user2)
+admin.add_user(user3)
 
-    # Создаем администратора
-    admin = Admin(100, "Администратор Системы")
+# Администратор удаляет пользователей
+admin.remove_user(user1)
 
-    # Администратор добавляет пользователей
-    admin.add_user(user1)
-    admin.add_user(user2)
-    admin.add_user(user3)
+# Меняем имя администратора
+admin.set_name("Чебурашка")
 
-    # Администратор удаляет пользователей
-    admin.remove_user(user1)
-
-    # Проверяем список пользователей
-    print(f"Админ {admin.get_name()} управляет пользователями:")
-    for user in admin.get_users():
-        print(f"- {user.get_name()} (ID: {user.get_id()}), доступ: {user.get_access_level()}")
+# Проверяем список пользователей
+print(f"Админ {admin.get_name()} управляет пользователями:")
+for user in admin.get_users():
+    print(f"- {user.get_name()} (ID: {user.get_id()}), доступ: {user.get_access_level()}")
 
 
 
