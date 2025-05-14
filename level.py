@@ -19,23 +19,25 @@ from os import access
 # и модификации снаружи. Предоставь доступ к необходимым атрибутам через методы (например, get и set методы).
 
 class User:
-    def __init__(self, id: int, name: str, access_level: str = 'user'):
+    def __init__(self, id, name,access_level: str = 'user'):
         self.__id = id  # Приватный атрибут
         self.__name = name  # Приватный атрибут
         self.__access_level = access_level  # Приватный атрибут
 
-    def get_id(self) -> int:
+    def get_id(self):
         return self.__id
 
-    def get_name(self) -> str:
+    def get_name(self):
         return self.__name
 
-    def get_access_level(self) -> str:
+    def get_access_level(self):
         return self.__access_level
 
+    def __set_name__(self, name):
+        self.__name = name  # Метод для изменения уровня доступа снаружи__set
 
 class Admin(User):
-    def __init__(self, id: int, name: str):
+    def __init__(self, id, name):
         super().__init__(id, name, access_level='admin')
         self.__users = []  # Приватный список пользователей
 
@@ -48,6 +50,7 @@ class Admin(User):
 
     def get_users(self):
         return self.__users
+
 
 
 # Пример использования
